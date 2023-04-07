@@ -10,7 +10,7 @@ import json
 from modules import cmd_args
 from modules.paths_internal import script_path, extensions_dir
 
-commandline_args = os.environ.get('COMMANDLINE_ARGS', "")
+commandline_args = os.environ.get('COMMANDLINE_ARGS', "--skip-torch-cuda-test --precision full --no-half")
 sys.argv += shlex.split(commandline_args)
 
 args, _ = cmd_args.parser.parse_known_args()
@@ -225,7 +225,7 @@ def run_extensions_installers(settings_file):
 def prepare_environment():
     global skip_install
 
-    torch_command = os.environ.get('TORCH_COMMAND', "pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 --extra-index-url https://download.pytorch.org/whl/cu117")
+    torch_command = os.environ.get('TORCH_COMMAND', "pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cpu")
     requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
 
     xformers_package = os.environ.get('XFORMERS_PACKAGE', 'xformers==0.0.16rc425')
